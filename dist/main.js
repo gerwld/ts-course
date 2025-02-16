@@ -40,3 +40,37 @@ const car1 = getCar("mts", 234);
 const car2 = getCar("mts");
 // выдаст ошибку в компиляторе
 // const car3 = getCar("mts", false) 
+// -- КЛАССЫ
+class Car {
+    // инициализация данных (полей) в конструкторе
+    constructor(name, price) {
+        this.price = price;
+        this.name = name;
+    }
+    getInfo() {
+        return `${this.name} ${this.price}`;
+    }
+    // не доступна извне
+    getInfoPrivate() {
+        return `${this.name} ${this.price}`;
+    }
+    // так же недоступна извне, но доступна с екстендед класса, например class Bus extends Car
+    getInfoPrivateForExtend() {
+        return `${this.name} ${this.price}`;
+    }
+}
+// работает без ошибок
+const Toyota = new Car("Toyota", 999);
+console.log(Toyota.getInfo());
+// console.log(Toyota.getInfoPrivate())
+class Bus extends Car {
+    constructor(tires) {
+        super("BUSIK", 20);
+        this.tires = tires;
+    }
+    getBusInfo() {
+        return `Tires count: ${this.tires}` + this.getInfo();
+    }
+}
+const imBussing = new Bus(6);
+// console.log(imBussing.getBusInfo())
