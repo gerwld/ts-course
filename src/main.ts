@@ -211,3 +211,96 @@ const getLength = (text:string | null) => {
    return text!.length;
 };
 
+
+
+// --- дженерики
+// условно, это прокидывание как параметр функции. 
+// сейчас не известно - задай при вызове что там будет на входе и выходе.
+
+// c функцией
+function entity<T>(args: T): T {
+   return args;
+}
+entity<number>(2);
+entity<string>("2");
+
+const entity2 = <T>(arg:T):T => {
+   return arg
+}
+
+entity2<number>(5);
+entity2<string>("5");
+
+// c классом
+class Channel<T> {
+   private name
+
+   getName():T {
+      return this.name;
+   }
+
+   constructor(name: T) {
+      this.name = name;
+   }
+}
+
+new Channel<string>("SlivkiShow").getName();
+new Channel<number>(123).getName();
+
+
+// c интерфейсом
+interface IPair<K, V> {
+   key: K,
+   value: V
+}
+
+const pair1:IPair<string, number> = {
+   key: "12",
+   value: 123
+} 
+
+// как бы екстендим неизвестное еще значение типа у дженерика T его же значение length
+// и задаем ему тип намбер. {blackbox}.length, где typeof length == "number"
+type TypeLength = {
+   length: number
+}
+
+function getNameLength<T extends TypeLength>(name: T):number {
+   return name.length;
+}
+
+let arr = [0,1,2];
+getNameLength("123123");
+getNameLength<number[]>(arr);
+
+
+interface ICar {
+   // ? делает поле не обьязательным
+   id?: number | string
+   name: string
+   price: number
+   yearProduced: number
+}
+
+// омит позволяет убрать какой-либо ключ с интерфейса
+interface ICarCreate extends Omit<ICar, 'id'> {}
+
+// пик позволяет взять только один ключ с расширяющего (екстендженого) интерфейса
+interface ICarId extends Pick<ICar, 'id'> {}
+
+// партиал дает возможность сделать все ключи не обьязательными
+interface IOptionalCar extends Partial<ICar> {}
+// обратное - все объязательные
+interface IReqCar extends Required<ICar> {}
+
+// ридонли дает возможность сделать все ключи не изменяемыми (только чтение)
+interface IReadOnlyCar extends Readonly<ICar> {}
+
+// ридонли дает возможность сделать все ключи не изменяемыми (только чтение)
+type TypeCarRecord = 
+   // тоже самое что к этим ключам задать number | string по отдельности
+   Record<'name' | 'price', number | string> 
+
+
+// еще существует ReturnType, Extract 
+// NotNullable - убирает null и undefined
