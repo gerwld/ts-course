@@ -26,3 +26,17 @@ const getChannelArrowSameShitButBetter = (name) => {
     return { name };
 };
 // getChannel(3);
+// оператор остатка - rest parametr (...numbers)
+const getNumbers = (...numbers) => {
+    return numbers;
+};
+// сама функция
+// cуть - покрыть все варианты ввода - вывода (типов принимаемых и воз. данных)
+function getCar(name, price) {
+    return price ? `Naming ${name}, Price ${price}` : `Naming ${name}`;
+}
+// оба варианта срабатывают
+const car1 = getCar("mts", 234);
+const car2 = getCar("mts");
+// выдаст ошибку в компиляторе
+// const car3 = getCar("mts", false) 

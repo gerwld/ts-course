@@ -52,5 +52,27 @@ const getChannelArrow = (name:string = "something-arg"):TypeChannelReturn => {
 const getChannelArrowSameShitButBetter:TypeChannelFunction = (name) => {
    return {name};
 }
-
 // getChannel(3);
+
+// оператор остатка - rest parametr (...numbers)
+const getNumbers = (...numbers: number[]) => {
+   return numbers;
+}
+
+// function overloads signatures (несколько сигнатур перегрузки)
+function getCar(name: string):string;
+function getCar(name: string, price: number):string;
+
+// сама функция
+// cуть - покрыть все варианты ввода - вывода (типов принимаемых и воз. данных)
+function getCar(name: string, price?: number):string  {
+   return price ? `Naming ${name}, Price ${price}` : `Naming ${name}`;
+}
+
+// оба варианта срабатывают
+const car1 = getCar("mts", 234)
+const car2 = getCar("mts")
+
+// выдаст ошибку в компиляторе
+// const car3 = getCar("mts", false) 
+
