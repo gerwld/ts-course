@@ -122,3 +122,58 @@ class Bus extends Car {
 }
 const imBussing = new Bus(6);
 // console.log(imBussing.getBusInfo())
+
+
+// Интерфейсы
+// предназначены в первую оч. для описания структур обьектов и классов
+// Типы - более универсальная конструкция, подходящая практически для всего, поэтому они более гибкие (обьединение, &| итд)
+// для обьектов и классов интерфейсы лучше, тк быстрее компилируются, имеют автоматический мержинг, екстенд, код выглядит чище.
+// для функций подойдет то и то.
+
+interface IUser {
+   name: string,
+   age: number,
+   email: string
+}
+
+// --- екстенд в тайпах 
+
+type TypeUserBase = {
+   username: string,
+}
+
+// екстенд типа через &
+type TypeUser2 = {
+   name: string,
+   age: number,
+   email: string
+} & TypeUserBase
+
+
+const user2:TypeUser2 =  {
+   age: 22,
+   name: "Seba",
+   email: "1@gmail.com",
+   username: "sebs1"
+}
+
+// --- екстенд в интерфейсах, похоже на екстенд класса 
+
+interface IUserBase {
+   username: string,
+}
+
+interface IUser2 extends IUserBase {
+   name: string,
+   age: number,
+   email: string
+}
+
+const user3:IUser2 = {
+   age: 22,
+   name: "Seba",
+   email: "1@gmail.com",
+   username: "sebs1"
+}
+
+const users:IUser2[] = [user2, user3]
