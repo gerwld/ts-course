@@ -177,3 +177,37 @@ const user3:IUser2 = {
 }
 
 const users:IUser2[] = [user2, user3]
+
+
+// енамы (c конст выходит проще конструкция для обработки на этапе компиляции)
+const enum EnumRoles {
+   ADMIN, GUEST, USER
+}
+
+
+interface IUser3 extends IUserBase {
+   role: EnumRoles,
+   name: string,
+   age: number,
+   email: string
+}
+
+const user4: IUser3 = {
+   age: 21,
+   name: "Adam",
+   email: "@fbd",
+   role: EnumRoles.ADMIN,
+   username: "apple"
+}
+
+// --- assertion (явное указание типа, принудительное)
+
+const inputElement = document.querySelector("some-selector");
+const value1 = (inputElement as HTMLInputElement).value;
+const value2 = (<HTMLInputElement>inputElement).value;
+
+// GCD Operator (!) обозначает что значение не может быть null
+const getLength = (text:string | null) => {
+   return text!.length;
+};
+
